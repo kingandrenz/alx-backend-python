@@ -14,12 +14,12 @@ class TestAccessNestedMap(unittest.TestCase):
 
     @parameterized.expand([
         ({"a": 1}, ("a"), 1),
-        ({"a": {"b": 2}}, ("a"), {"b": 2}),
+        ({"a": {"b": 2}}, ("a",), {"b": 2}),
         ({"a": {"b": 2}}, ("a", "b"))
     ])
-    def test_access_nested_map(self, nested_map, expected_result):
-        """ the test function, takes 3 parameters and
-            test if the expected_result == result
-        """
+    def test_access_nested_map(self, nested_map, expected_result): i
+    self.assertEqual(access_nested_map(nested_map, path), expected_result)
 
-        self.assertEqual(access_nested_map(nested_map, path), expected_result)
+
+if __name__ == '__main__':
+    unittest.main()
