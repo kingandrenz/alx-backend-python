@@ -37,7 +37,30 @@ class TestAccessNestedMap(unittest.TestCase):
             nested_map: Dict,
             path: Tuple[str],
             exception: Exception,
-            ) -> None:
+    ) -> None:
         """test for KeyError"""
         with self.assertRaises(exception):
             access_nested_map(nested_map, path)
+
+
+class TestMemoize(unittest.TestCase):
+    """ Memoize test class"""
+
+    def test_memoize(self) -> None:
+        """ memoize method with a Test_class"""
+
+        class TestClass:
+            def a_method(self) -> None:
+                return 42
+
+            @memoize
+            def a_property(self):
+                return self.a_method()
+        with patch.object(
+                TestClass,
+                "a_method", return_value=lambda: 42,
+        ) as my_call:
+            test_class = TestClass()
+            self.assertEqual(test_class.a_property(), 42)
+            self.assertEqual(test_class.a_property(), 42)
+            my_call.assert_called_once()
